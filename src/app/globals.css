@@ -1,26 +1,22 @@
 @import "tailwindcss";
+@plugin "daisyui";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Root font & smooth UI */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply bg-base-100 text-base-content;
+  font-family: ui-sans-serif, system-ui, -apple-system;
+}
+
+/* Card shadow improvement */
+.card {
+  @apply shadow-md hover:shadow-lg transition-shadow duration-300;
+}
+
+/* Button smoothness */
+.btn {
+  @apply transition-all duration-200;
 }
