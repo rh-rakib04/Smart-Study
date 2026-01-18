@@ -20,7 +20,7 @@ export default function LoginPage() {
         customClass: {
           popup: "rounded-2xl",
           confirmButton: "rounded-lg px-8 py-2",
-        }
+        },
       });
     } else if (state?.success) {
       // Normal Minimal Success Alert
@@ -32,47 +32,46 @@ export default function LoginPage() {
         timer: 1500,
         customClass: {
           popup: "rounded-2xl",
-        }
+        },
       });
     }
   }, [state]);
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
-      <div className="w-full max-w-sm bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
-        
+    <div className="min-h-screen bg-base-100 flex items-center justify-center p-6">
+      <div className="w-full max-w-sm  p-8 rounded-2xl shadow-sm border border-slate-200">
         {/* LOGO/HEADER */}
         <div className="mb-8 text-center md:text-left">
           <div className="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center mb-4 mx-auto md:mx-0">
             <Shield className="text-white" size={20} />
           </div>
-          <h1 className="text-xl font-bold text-slate-900">Sign in</h1>
-          <p className="text-sm text-slate-500 mt-1">Admin access only</p>
+          <h1 className="text-xl font-bold ">Sign in</h1>
+          <p className="text-sm  mt-1">Admin access only</p>
         </div>
 
         <form action={formAction} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
+            <label className="block text-xs font-semibold  uppercase tracking-wider mb-1.5">
               Email Address
             </label>
             <input
               name="email"
               type="email"
               placeholder="admin@test.com"
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-slate-200 focus:border-slate-400 outline-none transition-all text-sm"
+              className="w-full px-4 py-2.5 bg-base-200 border border-slate-200 rounded-lg focus:ring-2 focus:ring-slate-200 focus:border-slate-400 outline-none transition-all text-sm"
               required
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
+            <label className="block text-xs font-semibold  uppercase tracking-wider mb-1.5">
               Password
             </label>
             <input
               name="password"
               type="password"
-              placeholder="••••••••"
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-slate-200 focus:border-slate-400 outline-none transition-all text-sm"
+              placeholder="1234"
+              className="w-full px-4 py-2.5 bg-base-200 border border-slate-200 rounded-lg focus:ring-2 focus:ring-slate-200 focus:border-slate-400 outline-none transition-all text-sm"
               required
             />
           </div>
@@ -93,8 +92,11 @@ export default function LoginPage() {
         </form>
 
         <div className="mt-8 pt-6 border-t border-slate-100 flex justify-center">
-          <Link href="/" className="text-xs font-medium text-slate-400 hover:text-slate-900 transition-colors uppercase tracking-widest">
-            ← Return to index
+          <Link
+            href="/"
+            className="text-xs font-medium text-slate-400 hover: transition-colors uppercase tracking-widest"
+          >
+            ← Return to Home
           </Link>
         </div>
       </div>
