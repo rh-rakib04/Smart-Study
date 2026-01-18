@@ -1,21 +1,53 @@
-import { Zap, ShieldCheck, Globe } from "lucide-react";
+"use client";
+
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+const features = [
+  { title: "Curated Tools", desc: "Only useful tools for learners." },
+  { title: "Student Focused", desc: "Designed for productivity." },
+  { title: "Easy Contribution", desc: "Add tools instantly." },
+];
 
 export default function Features() {
-  const data = [
-    { icon: <Zap className="text-yellow-500" />, title: "Instant Efficiency", desc: "Automate citations and summaries." },
-    { icon: <ShieldCheck className="text-green-500" />, title: "Vetted Tools", desc: "Hand-picked for academic integrity." },
-    { icon: <Globe className="text-blue-500" />, title: "Global Sync", desc: "Access your toolkit anywhere." }
-  ];
+  const cardsRef = useRef([]);
+
+  useEffect(() => {
+    gsap.from(cardsRef.current, {
+      opacity: 0,
+      y: 40,
+      duration: 0.8,
+      stagger: 0.15,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: cardsRef.current[0],
+        start: "top 85%",
+      },
+    });
+  }, []);
+
   return (
-    <section className="py-20 bg-base-200/50 px-4">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-        {data.map((f, i) => (
-          <div key={i} className="card bg-base-100 p-8 shadow-sm border border-base-200">
-            <div className="mb-4">{f.icon}</div>
-            <h3 className="text-xl font-bold mb-2">{f.title}</h3>
-            <p className="opacity-70 text-sm">{f.desc}</p>
-          </div>
-        ))}
+    <section className="py-20">
+      <div className="max-w-7xl mx-auto px-4 text-center">
+        <h2 className="text-3xl md:text-4xl font-bold">
+          Why SmartStudy?
+        </h2>
+
+        <div className="mt-12 grid md:grid-cols-3 gap-6">
+          {features.map((f, i) => (
+            <div
+              key={i}
+              ref={(el) => (cardsRef.current[i] = el)}
+              className="rounded-2xl p-6 bg-base-100 shadow-sm border"
+            >
+              <h3 className="font-semibold text-lg">{f.title}</h3>
+              <p className="mt-2 text-sm text-base-content/70">{f.desc}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

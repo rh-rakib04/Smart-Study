@@ -1,19 +1,17 @@
-import Link from "next/link";
-
 export default function CTA() {
   return (
-    <section className="py-20 px-4">
-      <div className="max-w-4xl mx-auto bg-primary rounded-3xl p-12 text-center text-primary-content">
-        <h2 className="text-4xl font-black mb-4">Ready to Level Up?</h2>
-        <p className="mb-8 opacity-90">
-          Join thousands of students using Smart Study Tools daily.
+    <section className="py-24 bg-primary text-primary-content">
+      <div className="max-w-7xl mx-auto px-4 text-center">
+        <h2 className="text-3xl md:text-4xl font-bold">
+          Ready to Learn Smarter?
+        </h2>
+        <p className="mt-4 opacity-90">
+          Join thousands of students improving daily.
         </p>
-        <Link
-          href="/tools"
-          className="btn bg-white text-primary border-none hover:bg-gray-100"
-        >
-          Get Started Now
-        </Link>
+
+        <a href="/tools" className="btn btn-outline mt-8">
+          Get Started
+        </a>
       </div>
     </section>
   );
