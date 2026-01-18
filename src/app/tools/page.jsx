@@ -1,14 +1,17 @@
 import { getTools } from "@/actions/tool";
 import ToolCard from "@/components/cards/ToolCard";
 import { LayoutGrid, Sparkles } from "lucide-react";
-
+export const metadata = {
+  title: "The Tools",
+  description:
+    "Browse our full directory of verified AI study tools, research assistants, and academic boosters.",
+};
 export default async function ToolsPage() {
   const tools = await getTools();
 
   return (
     <main className="min-h-screen bg-base-100 py-16 px-6">
       <div className="max-w-7xl mx-auto">
-        
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-8 border-b border-gray-200 gap-6">
           <div className="max-w-2xl">
@@ -26,10 +29,14 @@ export default async function ToolsPage() {
           </div>
 
           <div className="bg-base-200 rounded-2xl p-4 border border-gray-200 min-w-[140px]">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Inventory Size</p>
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
+              Inventory Size
+            </p>
             <div className="flex items-baseline gap-1">
               <span className="text-3xl font-bold ">{tools.length}</span>
-              <span className="text-sm font-medium text-slate-400 italic">Tools</span>
+              <span className="text-sm font-medium text-slate-400 italic">
+                Tools
+              </span>
             </div>
           </div>
         </div>
@@ -50,7 +57,8 @@ export default async function ToolsPage() {
               No tools available
             </h3>
             <p className="mt-2 text-slate-500 max-w-xs mx-auto">
-              Our index is currently empty. Check back later or contribute via the portal.
+              Our index is currently empty. Check back later or contribute via
+              the portal.
             </p>
           </div>
         )}

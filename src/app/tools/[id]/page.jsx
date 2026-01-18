@@ -1,13 +1,72 @@
 import { getToolById } from "@/actions/tool";
 import { Check, ArrowLeft, ExternalLink, ShieldCheck } from "lucide-react";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
+// 1. DYNAMIC METADATA GENERATION
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  const tool = await getToolById(id);
+
+  if (!tool) {
+    return { title: "Tool Not Found" };
+  }
+
+  return {
+    title: tool.title,
+    description: tool.description.substring(0, 160),
+    openGraph: {
+      title: `${tool.title} | SmartStudy Toolkit`,
+      description: tool.description,
+      url: `https://smart-study-ecru.vercel.app/tools/${id}`,
+      siteName: "SmartStudy",
+      images: [{ url: tool.image, width: 1200, height: 630, alt: tool.title }],
+      locale: "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: tool.title,
+      description: tool.description,
+      images: [tool.image],
+    },
+  };
+}
+
+// 2. THE PAGE COMPONENT
 export default async function ToolDetail({ params }) {
   const { id } = await params;
   const tool = await getToolById(id);
 
+  if (!tool) notFound();
+
+  // 3. JSON-LD STRUCTURED DATA (FOR GOOGLE RICH SNIPPETS)
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": tool.title,
+    "image": tool.image,
+    "description": tool.description,
+    "brand": {
+      "@type": "Brand",
+      "name": "SmartStudy"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": tool.price === "Free" ? "0" : tool.price.replace(/[^0-9.]/g, ''),
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock"
+    }
+  };
+
   return (
     <main className="min-h-screen bg-base-100 py-20 px-6">
+      {/* Inject Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       <div className="max-w-6xl mx-auto">
         {/* BACK NAVIGATION */}
         <Link 
@@ -41,11 +100,11 @@ export default async function ToolDetail({ params }) {
                 </span>
               </div>
               
-              <h1 className="text-4xl md:text-6xl font-bold  tracking-tight leading-tight">
+              <h1 className="text-4xl md:text-6xl font-bold tracking-tight leading-tight">
                 {tool.title}
               </h1>
               
-              <div className="text-2xl font-semibold ">
+              <div className="text-2xl font-semibold text-slate-900">
                 {tool.price}
               </div>
             </div>
@@ -62,7 +121,7 @@ export default async function ToolDetail({ params }) {
 
             {/* FEATURES GRID */}
             <div className="space-y-4">
-              <h3 className="text-sm font-bold  uppercase tracking-tight">Technical Features</h3>
+              <h3 className="text-sm font-bold uppercase tracking-tight">Technical Features</h3>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
                 {tool.keyFeatures.map((feat) => (
                   <li key={feat} className="flex items-center gap-3 text-sm text-slate-600">
