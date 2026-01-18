@@ -11,10 +11,10 @@ export default function HomePage() {
     <main>
       <Hero />
       <Features />
-      <Stats />
       <HowItWorks />
       <Categories />
       <Testimonials />
+      <Stats />
       <CTA />
     </main>
   );

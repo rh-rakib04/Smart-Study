@@ -1,38 +1,90 @@
 import { getToolById } from "@/actions/tool";
+import { Check, ArrowLeft, ExternalLink, ShieldCheck } from "lucide-react";
+import Link from "next/link";
 
 export default async function ToolDetail({ params }) {
   const { id } = await params;
   const tool = await getToolById(id);
 
   return (
-    <div className="max-w-5xl mx-auto p-6 grid md:grid-cols-2 gap-10">
-      <img src={tool.image} className="rounded-3xl shadow-2xl" />
+    <main className="min-h-screen bg-base-100 py-20 px-6">
+      <div className="max-w-6xl mx-auto">
+        {/* BACK NAVIGATION */}
+        <Link 
+          href="/tools" 
+          className="inline-flex items-center gap-2 text-sm font-medium text-slate-400 hover:text-slate-900 transition-colors mb-12 group"
+        >
+          <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+          Back to Directory
+        </Link>
 
-      <div className="space-y-6">
-        <div className="flex justify-between items-center">
-          <span className="badge badge-outline">{tool.category}</span>
-          <span className="text-xl font-bold text-success">{tool.price}</span>
-        </div>
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
+          {/* LEFT: IMAGE GALLERY STYLE */}
+          <div className="relative group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-base-100 to-base-200 rounded-[2.5rem] blur opacity-25" />
+            <img 
+              src={tool.image} 
+              alt={tool.title}
+              className="relative rounded-[2rem] border border-slate-100 shadow-sm w-full object-cover aspect-[4/3]" 
+            />
+          </div>
 
-        <h1 className="text-5xl font-black">{tool.title}</h1>
-        <p className="text-lg opacity-80">{tool.description}</p>
+          {/* RIGHT: CONTENT SECTION */}
+          <div className="space-y-10">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <span className="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-widest">
+                  {tool.category}
+                </span>
+                <span className="text-sm font-bold text-emerald-600 flex items-center gap-1">
+                  <ShieldCheck size={14} /> Verified Tool
+                </span>
+              </div>
+              
+              <h1 className="text-4xl md:text-6xl font-bold  tracking-tight leading-tight">
+                {tool.title}
+              </h1>
+              
+              <div className="text-2xl font-semibold ">
+                {tool.price}
+              </div>
+            </div>
 
-        <div className="bg-base-200 p-4 rounded-xl">
-          <h3 className="font-bold mb-2">Best For:</h3>
-          <p>{tool.useCase}</p>
-        </div>
+            <p className="text-lg text-slate-500 leading-relaxed max-w-xl">
+              {tool.description}
+            </p>
 
-        <div>
-          <h3 className="font-bold mb-3">Key Features:</h3>
-          <ul className="grid grid-cols-2 gap-2">
-            {tool.keyFeatures.map((feat) => (
-              <li key={feat} className="flex items-center gap-2">
-                <span className="text-primary">✔</span> {feat}
-              </li>
-            ))}
-          </ul>
+            {/* USE CASE BOX */}
+            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-100 space-y-2">
+              <h3 className="text-sm font-bold text-slate-900 uppercase tracking-tight">Best Use Case</h3>
+              <p className="text-slate-600 text-sm leading-relaxed">{tool.useCase}</p>
+            </div>
+
+            {/* FEATURES GRID */}
+            <div className="space-y-4">
+              <h3 className="text-sm font-bold  uppercase tracking-tight">Technical Features</h3>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
+                {tool.keyFeatures.map((feat) => (
+                  <li key={feat} className="flex items-center gap-3 text-sm text-slate-600">
+                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-emerald-50 flex items-center justify-center">
+                      <Check size={12} className="text-emerald-600" />
+                    </div>
+                    {feat}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* PRIMARY CTA */}
+            <div className="pt-6 border-t border-slate-100">
+              <button className="w-full sm:w-auto px-8 py-4 bg-slate-900 text-white rounded-xl font-bold text-sm hover:bg-slate-800 transition-all flex items-center justify-center gap-2 group">
+                Access this Tool
+                <ExternalLink size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

@@ -22,18 +22,18 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="light">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <header>
-          <Navbar />
-        </header>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        {/* Removed the extra <header> wrap to allow Navbar's sticky to hit the body */}
+        <Navbar />
+        
         <ToastProvider>
-          <main>{children}</main>
+          {/* Added min-h-screen to ensure the footer stays at the bottom */}
+          <main className="min-h-screen">
+            {children}
+          </main>
         </ToastProvider>
-        <footer>
-          <Footer />
-        </footer>
+
+        <Footer />
       </body>
     </html>
   );

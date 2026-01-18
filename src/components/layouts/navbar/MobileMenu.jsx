@@ -17,7 +17,7 @@ export default function MobileMenu({ isLoggedIn }) {
         {open ? <IoCloseOutline size={24} /> : <IoMenuOutline size={24} />}
       </button>
 
-      <div className={`absolute right-0 top-full w-[70%] bg-base-100 border-b border-base-300 shadow-xl transition-all duration-300 ease-in-out origin-top ${
+      <div className={`absolute right-0 top-full w-[50%] bg-base-100 border-b border-base-300 shadow-xl transition-all duration-300 ease-in-out origin-top ${
           open ? "opacity-100 scale-y-100 visible" : "opacity-0 scale-y-95 invisible"
         }`}
       >
